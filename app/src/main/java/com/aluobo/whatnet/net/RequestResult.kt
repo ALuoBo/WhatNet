@@ -1,7 +1,7 @@
 package com.aluobo.whatnet.net
 
-sealed class RequestResult<out T> {
-    data class Success<out T>(val data: T) : RequestResult<T>()
+sealed class RequestResult<T> {
+    data class Success<T>(val data: T) : RequestResult<T>()
 
     /**
      * 这个 nothing ???

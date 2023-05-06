@@ -9,17 +9,17 @@ import kotlinx.coroutines.flow.flowOn
 object RequestHelper {
     suspend fun <T> request(
         call: suspend () -> Response<T>
-    ): Flow<RequestResult<Response<T>>> {
+    ): Flow<RequestResult<out Response<T>>> {
         return flow {
             val response = call()
             if (response.isSuccess()) {
-                emit(RequestResult.Success(response))
-            } else {
-                emit(RequestResult.Error(response.errorCode, response.errorMsg))
-            }
-        }.flowOn(Dispatchers.IO)
-            .catch { throwable: Throwable ->
-                emit(RequestResult.Error(-1, throwable.message))
-            }
+             emit(RequestResult.Success(response))
+             } else {
+                 emit(RequestResult.Error(response.errorCode, response.errorMsg))
+             }
+        }  .flowOn(Dispatchers.IO)
+          .catch { throwable: Throwable ->
+              emit(RequestResult.Error(-1, throwable.message))
+          }
     }
 }

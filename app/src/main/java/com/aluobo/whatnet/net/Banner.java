@@ -84,4 +84,9 @@ public class Banner {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void tt(){
+        var a  ="";
+    }
+
 }
